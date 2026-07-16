@@ -2422,3 +2422,310 @@ Used by
 6. Does volatile guarantee atomicity?
 
 
+# Comparable vs Comparator ★★★★★
+
+## Comparable
+
+Used for the **default (natural) sorting** of objects.
+
+- Present in `java.lang`
+- Class implements `Comparable`
+- Override `compareTo()`
+
+Example
+
+```java
+class Employee implements Comparable<Employee> {
+
+    @Override
+    public int compareTo(Employee e) {
+        return this.id - e.id;
+    }
+}
+```
+
+---
+
+## Comparator
+
+Used for **custom sorting**.
+
+- Present in `java.util`
+- Override `compare()`
+- Multiple sorting strategies possible
+
+Example
+
+```java
+Collections.sort(list,
+        (e1, e2) -> e1.getName().compareTo(e2.getName()));
+```
+
+---
+
+## Comparable vs Comparator
+
+| Comparable | Comparator |
+|------------|------------|
+| Natural sorting | Custom sorting |
+| compareTo() | compare() |
+| Class modified | Separate class/object |
+| Single sorting logic | Multiple sorting logics |
+
+---
+
+# Clone & Cloneable ★★★☆☆
+
+## Interview Answer
+
+Cloning creates a copy of an object.
+
+To support cloning:
+
+- Implement `Cloneable`
+- Override `clone()`
+
+Example
+
+```java
+class Employee implements Cloneable {
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+}
+```
+
+---
+
+## Shallow Copy vs Deep Copy
+
+### Shallow Copy
+
+Copies object references.
+
+Nested objects are shared.
+
+### Deep Copy
+
+Creates copies of nested objects as well.
+
+Completely independent copy.
+
+---
+
+# Marker Interface ★★★☆☆
+
+## Interview Answer
+
+A marker interface is an interface with **no methods**.
+
+It provides metadata to the JVM or framework.
+
+Examples
+
+- Serializable
+- Cloneable
+- Remote
+
+---
+
+# Generics ★★★★★
+
+## Interview Answer
+
+Generics provide compile-time type safety.
+
+Advantages
+
+- No explicit casting
+- Type safety
+- Better readability
+- Reusable code
+
+Example
+
+```java
+List<String> names = new ArrayList<>();
+```
+
+---
+
+## Why Generics?
+
+Without Generics
+
+```java
+List list = new ArrayList();
+
+list.add("Java");
+
+Integer n = (Integer) list.get(0);
+```
+
+Runtime error.
+
+With Generics
+
+Compiler catches the error.
+
+---
+
+# Wildcards ★★★☆☆
+
+Three types
+
+```
+<?>
+
+<? extends T>
+
+<? super T>
+```
+
+### extends
+
+Read only.
+
+### super
+
+Write objects.
+
+Interview Tip
+
+> PECS
+
+Producer → Extends
+
+Consumer → Super
+
+---
+
+# Enum ★★★☆☆
+
+## Interview Answer
+
+Enum represents a fixed set of constants.
+
+Example
+
+```java
+enum Status {
+
+    NEW,
+    ACTIVE,
+    CLOSED
+}
+```
+
+Advantages
+
+- Type safe
+- Readable
+- Prevents invalid values
+
+---
+
+# Annotations ★★★★☆
+
+## Interview Answer
+
+Annotations provide metadata to the compiler or framework.
+
+Common annotations
+
+```java
+@Override
+
+@Deprecated
+
+@SuppressWarnings
+```
+
+Spring
+
+```java
+@Component
+
+@Service
+
+@Repository
+
+@RestController
+```
+
+---
+
+# Inner Classes ★★☆☆☆
+
+Types
+
+- Member Inner Class
+- Static Nested Class
+- Local Inner Class
+- Anonymous Inner Class
+
+Mostly asked only for basics.
+
+---
+
+# Object Class ★★★★☆
+
+Every Java class implicitly extends Object.
+
+Common methods
+
+```java
+equals()
+
+hashCode()
+
+toString()
+
+clone()
+
+wait()
+
+notify()
+
+notifyAll()
+
+getClass()
+```
+
+---
+
+# Immutable Class ★★★★★
+
+## Interview Answer
+
+An immutable class cannot be modified after creation.
+
+Rules
+
+- Class should be final
+- Fields should be private final
+- No setters
+- Initialize through constructor
+- Defensive copy for mutable objects
+
+Example
+
+String is immutable.
+
+---
+
+# Frequently Asked Questions
+
+1. Comparable vs Comparator.
+2. Shallow Copy vs Deep Copy.
+3. What is a Marker Interface?
+4. Why Generics?
+5. What is Type Erasure?
+6. What is PECS?
+7. Why Enum?
+8. Common Java annotations.
+9. How to create an immutable class?
+
+
