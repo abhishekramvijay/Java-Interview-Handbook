@@ -1785,3 +1785,295 @@ Useful for
 13. How does AtomicInteger work?
 14. Explain CAS.
 15. What happens if unlock() is forgotten?
+
+
+# JVM (Java Virtual Machine)
+
+---
+
+# JVM Overview ★★★★★
+
+## Interview Answer
+
+JVM (Java Virtual Machine) is responsible for executing Java bytecode. It provides platform independence by converting bytecode into machine-specific instructions.
+
+Responsibilities:
+
+- Load classes
+- Verify bytecode
+- Manage memory
+- Execute bytecode
+- Garbage Collection
+
+---
+
+# JVM Architecture ★★★★★
+
+```
+Java Source Code
+        │
+      javac
+        │
+    Bytecode (.class)
+        │
+        JVM
+        │
+ ┌────────────────────┐
+ │ Class Loader       │
+ │ Bytecode Verifier  │
+ │ Execution Engine   │
+ │ Garbage Collector  │
+ └────────────────────┘
+        │
+Machine Code
+```
+
+---
+
+# JVM Memory ★★★★★
+
+```
+             JVM Memory
+
+        ┌───────────────┐
+        │    Heap       │
+        └───────────────┘
+
+        ┌───────────────┐
+        │    Stack      │
+        └───────────────┘
+
+        ┌───────────────┐
+        │ Metaspace     │
+        └───────────────┘
+
+        ┌───────────────┐
+        │ PC Register   │
+        └───────────────┘
+
+        ┌───────────────┐
+        │ Native Stack  │
+        └───────────────┘
+```
+
+---
+
+# Heap vs Stack ★★★★★
+
+| Heap | Stack |
+|------|-------|
+| Stores Objects | Stores Local Variables |
+| Shared by threads | One stack per thread |
+| Garbage Collected | Automatically destroyed after method returns |
+| Larger | Smaller |
+
+---
+
+# Heap Memory ★★★★★
+
+Stores
+
+- Objects
+- Arrays
+- String Pool
+
+Shared by all threads.
+
+Managed by Garbage Collector.
+
+---
+
+# Stack Memory ★★★★★
+
+Stores
+
+- Local variables
+- Method parameters
+- Method calls
+
+Every thread has its own stack.
+
+---
+
+# Metaspace ★★★★☆
+
+Stores
+
+- Class metadata
+- Method metadata
+- Static information
+
+Introduced in Java 8.
+
+Replaced Permanent Generation (PermGen).
+
+---
+
+# Class Loader ★★★★★
+
+Loads classes into JVM.
+
+Three Class Loaders
+
+```
+Bootstrap
+
+↓
+
+Platform
+
+↓
+
+Application
+```
+
+---
+
+# Class Loading Process ★★★★☆
+
+```
+Loading
+
+↓
+
+Linking
+
+↓
+
+Initialization
+```
+
+Linking
+
+```
+Verification
+
+↓
+
+Preparation
+
+↓
+
+Resolution
+```
+
+---
+
+# Execution Engine ★★★★☆
+
+Responsible for executing bytecode.
+
+Contains
+
+- Interpreter
+- JIT Compiler
+
+---
+
+# Interpreter vs JIT Compiler ★★★★★
+
+Interpreter
+
+- Executes line by line.
+- Slower initially.
+
+JIT Compiler
+
+- Converts frequently executed bytecode into native machine code.
+- Improves performance.
+
+---
+
+# Garbage Collection ★★★★★
+
+## Interview Answer
+
+Garbage Collection automatically removes objects that are no longer reachable, freeing heap memory.
+
+Benefits
+
+- Prevents memory leaks
+- Automatic memory management
+
+---
+
+# Minor GC vs Major GC vs Full GC ★★★★★
+
+Minor GC
+
+- Cleans Young Generation.
+- Fast.
+
+Major GC
+
+- Cleans Old Generation.
+
+Full GC
+
+- Cleans entire heap.
+- Slow.
+- Avoid frequent Full GC.
+
+---
+
+# OutOfMemoryError vs StackOverflowError ★★★★★
+
+| OutOfMemoryError | StackOverflowError |
+|------------------|-------------------|
+| Heap exhausted | Stack exhausted |
+| Too many objects | Deep recursion |
+| Memory issue | Call stack issue |
+
+---
+
+# Thread Dump ★★★★★
+
+## Interview Answer
+
+Thread Dump is a snapshot of all JVM threads at a specific instant.
+
+Used for
+
+- Deadlocks
+- Hung threads
+- High CPU usage
+- Performance analysis
+
+Common command
+
+```
+jstack <pid>
+```
+
+---
+
+# Heap Dump ★★★★☆
+
+Heap Dump is a snapshot of heap memory.
+
+Used to analyze
+
+- Memory leaks
+- Large objects
+- Heap usage
+
+Common command
+
+```
+jmap
+```
+
+---
+
+# Frequently Asked Questions
+
+1. Explain JVM architecture.
+2. Heap vs Stack.
+3. What is Metaspace?
+4. Explain Class Loader.
+5. Minor vs Major vs Full GC.
+6. Why is Java platform independent?
+7. Interpreter vs JIT.
+8. What is Thread Dump?
+9. What is Heap Dump?
+10. OutOfMemoryError vs StackOverflowError.
