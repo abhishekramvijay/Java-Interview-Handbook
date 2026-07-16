@@ -1,41 +1,12 @@
 # Senior Java Backend Interview Handbook
 
-> **A practical interview handbook for Senior / Lead Java Backend Engineers (8–15 Years Experience).**
->
-> This repository is **not a Java tutorial**. It is a structured collection of interview-oriented notes, explanations, code snippets, and frequently asked questions accumulated from real interview preparation.
+> Interview-oriented handbook for Senior / Lead Java Backend Engineers.
 
----
+This repository is built for one purpose:
 
-# Purpose
+> **Clear Java Backend interviews with minimum revision time.**
 
-The objective of this handbook is simple:
-
-> **Maximize interview preparation while minimizing revision time.**
-
-Unlike traditional books, this handbook focuses on:
-
-- What interviewers ask.
-- How to answer confidently.
-- Why the answer is correct.
-- Common follow-up questions.
-- Common mistakes made by candidates.
-
-This repository is intended to become the **single source of truth** for interview preparation.
-
----
-
-# Target Audience
-
-- Senior Software Engineer
-- Staff Engineer
-- Lead Engineer
-- Java Backend Developer
-- Spring Boot Developer
-- Microservices Developer
-
-Experience Level:
-
-**8–15 Years**
+Unlike books or tutorials, this handbook focuses only on concepts that are commonly asked in interviews.
 
 ---
 
@@ -60,114 +31,51 @@ Experience Level:
 
 ---
 
-# How to Use this Handbook
+# How to Read
 
-Every topic follows the same format.
+Every topic follows the same structure.
 
-## ⭐ Interview Answer
+## Interview Answer
 
-30–60 second answer expected during interviews.
+30-60 second answer expected in interviews.
 
-Read this before every interview.
+## Key Points
 
----
+Important facts to remember.
 
-## ⭐ Key Points
+## Explanation
 
-Important facts.
+Read only if deeper understanding is required.
 
-Easy to revise.
+## Code
 
----
+Only where useful.
 
-## ⭐ Detailed Explanation
+## Follow-up Questions
 
-Only read if deeper understanding is required.
+Frequently asked interview follow-ups.
 
-Can be skipped during revision.
+## Revision Box
 
----
-
-## ⭐ Code
-
-Interview-oriented Java examples.
-
-No unnecessary complexity.
-
----
-
-## ⭐ Frequently Asked Follow-ups
-
-Exactly the questions interviewers usually ask after the main question.
-
----
-
-## ⭐ Common Mistakes
-
-Mistakes candidates frequently make during interviews.
-
----
-
-## ⭐ Revision Box
-
-One-minute revision.
-
-Useful immediately before interviews.
-
----
-
-# Difficulty Legend
-
-🟢 Basic
-
-Questions expected in almost every interview.
-
----
-
-🟡 Intermediate
-
-Expected for Senior Engineers.
-
----
-
-🔴 Advanced
-
-Mostly asked for Lead/Staff positions.
+One-minute revision before interviews.
 
 ---
 
 # Frequency Rating
 
-★★★★★ Asked in almost every interview
+★★★★★ Almost every interview
 
 ★★★★☆ Frequently asked
 
 ★★★☆☆ Sometimes asked
 
-★★☆☆☆ Rarely asked
+★★☆☆☆ Rare
 
-★☆☆☆☆ Very rarely asked
-
----
-
-# Writing Principles
-
-This handbook follows a few strict principles.
-
-- Interview oriented.
-- Concise but complete.
-- No repeated content.
-- Easy to revise.
-- Practical over theoretical.
-- Focus on understanding instead of memorization.
-- Code only where it improves understanding.
-- Real-world examples wherever possible.
+★☆☆☆☆ Very Rare
 
 ---
 
-# Suggested Study Order
-
-If preparing from scratch:
+# Suggested Order
 
 1. Core Java
 2. Java 8
@@ -185,40 +93,6 @@ If preparing from scratch:
 
 ---
 
-# Before an Interview
+# Version
 
-If time available is:
-
-## 1 Day
-
-- Rapid Revision
-- Core Java
-- Spring Boot
-- Microservices
-
----
-
-## 3 Days
-
-- Core Java
-- Java 8
-- Spring
-- Spring Boot
-- SQL
-- Microservices
-
----
-
-## 1 Week
-
-Revise the complete handbook.
-
----
-
-# Version History
-
-Current Version
-
-**v1.0 (Work in Progress)**
-
-This handbook will continue evolving with every interview and newly learned concept.
+Current Version: v1.0
