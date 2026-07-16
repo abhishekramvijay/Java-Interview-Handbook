@@ -302,3 +302,314 @@ Useful because Java Collections can store only objects.
 8. Can a static method be overridden?
 9. Why are wrapper classes needed?
 10. What is autoboxing and unboxing?
+
+
+# OOP
+
+---
+
+# OOP Pillars ★★★★★
+
+The four pillars of Object-Oriented Programming are:
+
+- Encapsulation
+- Abstraction
+- Inheritance
+- Polymorphism
+
+---
+
+# Encapsulation ★★★★★
+
+## Interview Answer
+
+Encapsulation is the process of bundling data and methods together while restricting direct access to the data using access modifiers. It helps achieve data hiding and protects object integrity.
+
+Example
+
+```java
+class Employee {
+
+    private int salary;
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+}
+```
+
+### Interview Tip
+
+> Encapsulation answers **"How do we protect data?"**
+
+---
+
+# Abstraction ★★★★★
+
+## Interview Answer
+
+Abstraction hides implementation details and exposes only the required functionality to the user. It reduces complexity by showing **what** an object does rather than **how** it does it.
+
+Example
+
+```java
+interface PaymentService {
+    void pay();
+}
+```
+
+### Real-world Example
+
+ATM Machine
+
+You know how to withdraw money.
+
+You don't know how the bank processes it internally.
+
+### Interview Tip
+
+> Abstraction answers **"What does the object do?"**
+
+---
+
+# Encapsulation vs Abstraction ★★★★★
+
+| Encapsulation | Abstraction |
+|---------------|-------------|
+| Hides data | Hides implementation |
+| Achieved using private members | Achieved using interfaces & abstract classes |
+| Focuses on security | Focuses on simplicity |
+
+---
+
+# Inheritance ★★★★★
+
+## Interview Answer
+
+Inheritance allows one class to acquire the properties and methods of another class, enabling code reuse and polymorphism.
+
+Example
+
+```java
+class Animal {
+
+    void eat() {}
+}
+
+class Dog extends Animal {
+
+    void bark() {}
+}
+```
+
+Relationship
+
+```
+Dog IS-A Animal
+```
+
+### Advantages
+
+- Code reuse
+- Extensibility
+- Runtime polymorphism
+
+### Disadvantages
+
+- Tight coupling
+- Fragile hierarchy if overused
+
+---
+
+# Polymorphism ★★★★★
+
+## Interview Answer
+
+Polymorphism means "one interface, many implementations."
+
+It allows the same method call to behave differently based on the object.
+
+There are two types:
+
+- Compile-time (Method Overloading)
+- Runtime (Method Overriding)
+
+---
+
+# Method Overloading ★★★★★
+
+## Interview Answer
+
+Methods have the same name but different parameter lists.
+
+Resolved at compile time.
+
+```java
+class Calculator {
+
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+```
+
+---
+
+# Method Overriding ★★★★★
+
+## Interview Answer
+
+A subclass provides its own implementation of a superclass method.
+
+Resolved at runtime.
+
+```java
+class Animal {
+
+    void sound() {
+        System.out.println("Animal");
+    }
+}
+
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+```
+
+---
+
+# Overloading vs Overriding ★★★★★
+
+| Overloading | Overriding |
+|--------------|------------|
+| Same class | Parent & Child |
+| Different parameters | Same parameters |
+| Compile-time | Runtime |
+| Increases readability | Enables runtime polymorphism |
+
+---
+
+# Composition vs Inheritance ★★★★★
+
+## Interview Answer
+
+Inheritance represents an **IS-A** relationship.
+
+Composition represents a **HAS-A** relationship.
+
+Modern applications prefer **composition over inheritance** because it reduces coupling and improves flexibility.
+
+Example
+
+```java
+class Engine {}
+
+class Car {
+
+    private Engine engine;
+}
+```
+
+Relationship
+
+```
+Car HAS-A Engine
+```
+
+### Interview Tip
+
+> Prefer Composition over Inheritance.
+
+---
+
+# Interface vs Abstract Class ★★★★★
+
+| Interface | Abstract Class |
+|------------|----------------|
+| Defines contract | Defines partial implementation |
+| Multiple inheritance supported | Single inheritance |
+| No instance variables (except constants) | Can have instance variables |
+| Used for capabilities | Used for common base implementation |
+
+### When to use?
+
+Interface
+
+- Multiple implementations
+- Loose coupling
+- Strategy Pattern
+
+Abstract Class
+
+- Common code reuse
+- Shared state
+- Partial implementation
+
+---
+
+# this vs super ★★★★☆
+
+| this | super |
+|------|-------|
+| Refers to current object | Refers to parent object |
+| Access current members | Access parent members |
+| Call current constructor | Call parent constructor |
+
+---
+
+# Object Class ★★★★☆
+
+Frequently overridden methods
+
+- equals()
+- hashCode()
+- toString()
+
+Frequently used methods
+
+- getClass()
+- clone()
+- wait()
+- notify()
+- notifyAll()
+
+---
+
+# SOLID Principles ★★★★☆
+
+> Learn the definition and one example of each principle.
+
+- S - Single Responsibility Principle
+- O - Open Closed Principle
+- L - Liskov Substitution Principle
+- I - Interface Segregation Principle
+- D - Dependency Inversion Principle
+
+(Detailed explanation in LLD chapter.)
+
+---
+
+# Frequently Asked Questions
+
+1. Difference between abstraction and encapsulation.
+2. Difference between interface and abstract class.
+3. Why is Java not purely object oriented?
+4. Difference between overloading and overriding.
+5. Can constructors be overridden?
+6. Can constructors be final?
+7. Why do we prefer composition over inheritance?
+8. Difference between IS-A and HAS-A relationship.
+9. What are SOLID principles?
+10. Explain runtime polymorphism with an example.
