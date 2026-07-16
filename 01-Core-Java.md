@@ -2215,8 +2215,6 @@ Mark it as transient.
 transient Address address;
 ```
 
-> This was asked in one of your interviews.
-
 ---
 
 # writeObject() and readObject() ★★★☆☆
