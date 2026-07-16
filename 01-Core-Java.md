@@ -780,3 +780,424 @@ true
 8. Can String be mutable?
 9. How does String concatenation work?
 10. Which is faster: StringBuilder or StringBuffer?
+
+
+# Collections Framework
+
+> The Java Collections Framework provides data structures and algorithms to store, retrieve, and manipulate groups of objects efficiently.
+
+---
+
+# Collections Hierarchy ★★★★★
+
+```
+                Iterable
+                    │
+               Collection
+          ┌────────┼────────┐
+         List      Set     Queue
+          │         │         │
+ ArrayList     HashSet   PriorityQueue
+ LinkedList    TreeSet
+ Vector        LinkedHashSet
+
+                 Map
+                  │
+        HashMap  TreeMap
+        Hashtable
+        LinkedHashMap
+        ConcurrentHashMap
+```
+
+---
+
+# ArrayList vs LinkedList ★★★★★
+
+| ArrayList | LinkedList |
+|------------|------------|
+| Dynamic Array | Doubly Linked List |
+| Fast Random Access O(1) | Random Access O(n) |
+| Insert/Delete Middle O(n) | Insert/Delete O(1) (if node known) |
+| Less Memory | More Memory |
+
+## Interview Answer
+
+Use **ArrayList** when reads are frequent.
+
+Use **LinkedList** when insertions/deletions are frequent.
+
+> In most enterprise applications, ArrayList is preferred.
+
+---
+
+# HashMap ★★★★★
+
+## Interview Answer
+
+HashMap stores key-value pairs using hashing.
+
+Average lookup complexity is **O(1)**.
+
+Internally it uses an array of buckets.
+
+Collisions are handled using
+
+- Linked List (Java 7)
+- Red Black Tree (Java 8+) when bucket size exceeds threshold.
+
+---
+
+## Internal Working
+
+```
+put(key,value)
+
+↓
+
+hashCode()
+
+↓
+
+bucket index
+
+↓
+
+bucket empty?
+
+↓
+
+Yes → Insert
+
+↓
+
+No
+
+↓
+
+equals()
+
+↓
+
+Update
+
+OR
+
+Collision
+
+↓
+
+Linked List / Tree
+```
+
+---
+
+## Important Facts
+
+Default Capacity
+
+```
+16
+```
+
+Default Load Factor
+
+```
+0.75
+```
+
+Resize
+
+```
+16
+
+↓
+
+12 elements
+
+↓
+
+Resize to 32
+```
+
+Treeify Threshold
+
+```
+8
+```
+
+Untreeify Threshold
+
+```
+6
+```
+
+Minimum Capacity for Treeification
+
+```
+64
+```
+
+---
+
+## Follow-up Questions
+
+- Why override equals() and hashCode() together?
+- What happens during resize?
+- Why Tree after Java 8?
+- Can mutable objects be used as keys?
+- Why one null key?
+
+---
+
+# HashMap vs Hashtable vs ConcurrentHashMap ★★★★★
+
+| HashMap | Hashtable | ConcurrentHashMap |
+|-----------|-----------|-------------------|
+| Not Thread Safe | Thread Safe | Thread Safe |
+| Allows one null key | No null | No null |
+| Allows null values | No null | No null |
+| Faster | Slower | Better concurrency |
+| No synchronization | Entire table synchronized | Fine-grained locking |
+
+---
+
+# ConcurrentHashMap ★★★★★
+
+## Interview Answer
+
+ConcurrentHashMap is a thread-safe implementation of Map.
+
+It uses fine-grained synchronization to allow high concurrency.
+
+Unlike Hashtable, it does not lock the entire map during writes.
+
+---
+
+## Why no null?
+
+Because during concurrent access, a null return value becomes ambiguous.
+
+```
+map.get(key)
+
+↓
+
+null
+
+↓
+
+Does key not exist?
+
+OR
+
+Value is null?
+```
+
+Impossible to distinguish.
+
+Hence null keys and values are prohibited.
+
+---
+
+# HashSet ★★★★★
+
+## Interview Answer
+
+HashSet stores unique elements.
+
+Internally backed by HashMap.
+
+Insertion, deletion and search are O(1).
+
+---
+
+# TreeSet ★★★★☆
+
+## Interview Answer
+
+TreeSet stores unique elements in sorted order.
+
+Internally backed by TreeMap.
+
+Complexity
+
+```
+O(log n)
+```
+
+---
+
+# LinkedHashSet ★★★☆☆
+
+Maintains insertion order.
+
+Internally backed by LinkedHashMap.
+
+---
+
+# TreeMap ★★★★★
+
+## Interview Answer
+
+TreeMap stores key-value pairs in sorted order of keys.
+
+Internally implemented using Red Black Tree.
+
+Complexity
+
+```
+O(log n)
+```
+
+---
+
+# TreeMap vs HashMap ★★★★★
+
+| HashMap | TreeMap |
+|-----------|---------|
+| Unordered | Sorted |
+| O(1) | O(log n) |
+| Hash Table | Red Black Tree |
+| One null key | No null key |
+
+---
+
+# LinkedHashMap ★★★★☆
+
+Maintains insertion order.
+
+Can also maintain access order.
+
+Useful for implementing
+
+```
+LRU Cache
+```
+
+---
+
+# WeakHashMap ★★☆☆☆
+
+Uses Weak References for keys.
+
+Entries are automatically removed when keys are garbage collected.
+
+Mostly used for caches.
+
+---
+
+# IdentityHashMap ★★☆☆☆
+
+Uses
+
+```
+==
+```
+
+instead of
+
+```
+equals()
+```
+
+for key comparison.
+
+Rarely used.
+
+---
+
+# PriorityQueue ★★★★★
+
+Default implementation of Min Heap.
+
+```
+peek()
+
+O(1)
+
+offer()
+
+O(log n)
+
+poll()
+
+O(log n)
+```
+
+Common Interview Questions
+
+- Top K Frequent Elements
+- Merge K Sorted Lists
+- Kth Largest Element
+
+---
+
+# ConcurrentModificationException ★★★★★
+
+Occurs when a fail-fast collection is structurally modified while iterating.
+
+Wrong
+
+```java
+for(String s : list){
+    list.remove(s);
+}
+```
+
+Correct
+
+```java
+Iterator<String> itr = list.iterator();
+
+while(itr.hasNext()){
+
+    if(...){
+
+        itr.remove();
+    }
+}
+```
+
+---
+
+# CopyOnWriteArrayList ★★★★☆
+
+Creates a new copy of the array on every write.
+
+Advantages
+
+- Safe iteration
+- No ConcurrentModificationException
+
+Disadvantages
+
+- Expensive writes
+- High memory usage
+
+Suitable for
+
+```
+Many Reads
+
+Few Writes
+```
+
+---
+
+# Frequently Asked Questions
+
+1. Explain HashMap internals.
+2. Difference between HashMap and ConcurrentHashMap.
+3. Why ConcurrentHashMap doesn't allow null?
+4. Difference between TreeMap and HashMap.
+5. Difference between HashSet and TreeSet.
+6. Difference between ArrayList and LinkedList.
+7. What is ConcurrentModificationException?
+8. What is CopyOnWriteArrayList?
+9. How does HashMap resize?
+10. What is treeification?
+11. Can mutable objects be used as HashMap keys?
+12. Why override equals() and hashCode() together?
+13. Which collection would you use for LRU Cache?
+14. Which collection maintains insertion order?
+15. Which collection maintains sorted order?
