@@ -613,3 +613,170 @@ Frequently used methods
 8. Difference between IS-A and HAS-A relationship.
 9. What are SOLID principles?
 10. Explain runtime polymorphism with an example.
+
+# Strings
+
+---
+
+# Why String is Immutable ★★★★★
+
+## Interview Answer
+
+A String is immutable because once created, its value cannot be changed. Any modification creates a new String object.
+
+Immutability provides:
+
+- Security
+- Thread safety
+- String Pool
+- Cached hashCode()
+- Safe HashMap keys
+
+### Follow-up Questions
+
+**Why String is used as HashMap key?**
+
+Because its hashCode never changes after creation.
+
+**How is String made immutable?**
+
+- Class is final
+- Internal value is private
+- No setter methods
+- Modification methods return a new String
+
+---
+
+# String Pool ★★★★★
+
+## Interview Answer
+
+The String Pool is a special memory area inside the heap that stores string literals. If the same literal already exists, Java reuses the existing object instead of creating a new one.
+
+Example
+
+```java
+String s1 = "Java";
+String s2 = "Java";
+
+System.out.println(s1 == s2);   // true
+```
+
+---
+
+# String vs StringBuilder vs StringBuffer ★★★★★
+
+| String | StringBuilder | StringBuffer |
+|---------|---------------|--------------|
+| Immutable | Mutable | Mutable |
+| Thread Safe | No | Yes |
+| Performance | Slow for modifications | Fast | Slower than Builder |
+
+### When to use?
+
+- String → Read-only data
+- StringBuilder → Single-threaded modifications
+- StringBuffer → Multi-threaded modifications
+
+---
+
+# == vs equals() ★★★★★
+
+## Interview Answer
+
+- `==` compares references.
+- `equals()` compares object contents.
+
+```java
+String s1 = new String("Java");
+String s2 = new String("Java");
+
+System.out.println(s1 == s2);       // false
+System.out.println(s1.equals(s2));  // true
+```
+
+---
+
+# StringBuilder ★★★★★
+
+## Interview Answer
+
+StringBuilder is a mutable sequence of characters.
+
+Preferred when repeatedly modifying strings because it avoids creating multiple String objects.
+
+Example
+
+```java
+StringBuilder sb = new StringBuilder();
+
+sb.append("Java");
+sb.append("8");
+```
+
+---
+
+# StringBuffer ★★★★☆
+
+## Interview Answer
+
+StringBuffer is similar to StringBuilder but all methods are synchronized, making it thread-safe.
+
+Use it only when multiple threads modify the same object.
+
+---
+
+# intern() ★★★★☆
+
+## Interview Answer
+
+The `intern()` method moves (or returns) the String from the String Pool.
+
+```java
+String s1 = new String("Java");
+
+String s2 = s1.intern();
+```
+
+Now
+
+```java
+s2 == "Java"
+```
+
+returns
+
+```java
+true
+```
+
+---
+
+# Common String Interview Programs ★★★★★
+
+- Reverse String
+- Reverse Words
+- Check Palindrome
+- Count Vowels
+- Count Frequency
+- First Non-Repeating Character
+- Most Frequent Character
+- Anagram
+- Longest Common Prefix
+- Longest Common Subsequence
+- Longest Repeating Substring
+
+---
+
+# Frequently Asked Questions
+
+1. Why is String immutable?
+2. Explain String Pool.
+3. String vs StringBuilder vs StringBuffer.
+4. == vs equals().
+5. What is intern()?
+6. Why is String final?
+7. Why is String used as HashMap key?
+8. Can String be mutable?
+9. How does String concatenation work?
+10. Which is faster: StringBuilder or StringBuffer?
