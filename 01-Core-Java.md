@@ -1201,3 +1201,240 @@ Few Writes
 13. Which collection would you use for LRU Cache?
 14. Which collection maintains insertion order?
 15. Which collection maintains sorted order?
+
+
+# Exception Handling
+
+---
+
+# Exception Hierarchy ★★★★★
+
+```
+                 Throwable
+                /         \
+           Error       Exception
+                           |
+                 RuntimeException
+```
+
+- **Error** → Serious JVM issues (OutOfMemoryError, StackOverflowError).
+- **Checked Exception** → Checked at compile time.
+- **Unchecked Exception** → Occur at runtime.
+
+---
+
+# Checked vs Unchecked Exception ★★★★★
+
+| Checked Exception | Unchecked Exception |
+|-------------------|---------------------|
+| Checked at compile time | Occurs at runtime |
+| Must be handled or declared | Handling is optional |
+| Extends Exception | Extends RuntimeException |
+
+Examples
+
+Checked
+
+```java
+IOException
+SQLException
+FileNotFoundException
+```
+
+Unchecked
+
+```java
+NullPointerException
+ArithmeticException
+ArrayIndexOutOfBoundsException
+IllegalArgumentException
+```
+
+---
+
+# throw vs throws ★★★★★
+
+| throw | throws |
+|--------|---------|
+| Used to explicitly throw an exception | Declares exceptions that a method may throw |
+| Inside method | In method signature |
+
+Example
+
+```java
+public void validate(int age) {
+
+    if(age < 18)
+        throw new IllegalArgumentException();
+}
+```
+
+```java
+public void readFile() throws IOException {
+
+}
+```
+
+---
+
+# try-catch-finally ★★★★★
+
+## Interview Answer
+
+- **try** → Contains code that may throw an exception.
+- **catch** → Handles the exception.
+- **finally** → Executes regardless of whether an exception occurs.
+
+Example
+
+```java
+try {
+
+}
+catch(Exception e){
+
+}
+finally{
+
+}
+```
+
+---
+
+# Can finally not execute? ★★★★☆
+
+Yes.
+
+Cases:
+
+- JVM crashes
+- System.exit()
+- Power failure
+
+---
+
+# try-with-resources ★★★★★
+
+## Interview Answer
+
+Introduced in Java 7.
+
+Automatically closes resources implementing **AutoCloseable**.
+
+Example
+
+```java
+try(BufferedReader br =
+        new BufferedReader(new FileReader("a.txt"))) {
+
+}
+```
+
+Preferred over manually closing resources.
+
+---
+
+# Custom Exception ★★★★☆
+
+Create by extending
+
+Checked
+
+```java
+Exception
+```
+
+Unchecked
+
+```java
+RuntimeException
+```
+
+Example
+
+```java
+class InvalidAgeException
+        extends RuntimeException {
+
+    public InvalidAgeException(String message) {
+        super(message);
+    }
+}
+```
+
+---
+
+# Multiple catch blocks ★★★★☆
+
+Always write
+
+Specific
+
+↓
+
+Generic
+
+Example
+
+```java
+catch(FileNotFoundException e){
+
+}
+catch(IOException e){
+
+}
+catch(Exception e){
+
+}
+```
+
+---
+
+# Exception Propagation ★★★★☆
+
+Unchecked exceptions automatically propagate up the call stack until handled.
+
+```
+Method A
+
+↓
+
+Method B
+
+↓
+
+Method C
+
+↓
+
+Exception
+
+↓
+
+Caller
+```
+
+---
+
+# Common Runtime Exceptions ★★★★★
+
+- NullPointerException
+- ArithmeticException
+- NumberFormatException
+- IllegalArgumentException
+- IllegalStateException
+- ClassCastException
+- IndexOutOfBoundsException
+
+---
+
+# Frequently Asked Questions
+
+1. Difference between checked and unchecked exceptions.
+2. Difference between throw and throws.
+3. Can finally block not execute?
+4. Why use try-with-resources?
+5. How do you create a custom exception?
+6. Difference between Exception and Error.
+7. Can we have multiple catch blocks?
+8. What is exception propagation?
