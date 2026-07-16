@@ -2077,3 +2077,350 @@ jmap
 8. What is Thread Dump?
 9. What is Heap Dump?
 10. OutOfMemoryError vs StackOverflowError.
+
+
+# Serialization
+
+---
+
+# Serialization ★★★★☆
+
+## Interview Answer
+
+Serialization is the process of converting an object into a byte stream so that it can be stored in a file, sent over a network, or persisted.
+
+Deserialization is the reverse process of reconstructing the object from the byte stream.
+
+---
+
+# Why Serialization?
+
+Used for
+
+- Network communication
+- File storage
+- Caching
+- Distributed systems
+- Session replication
+
+---
+
+# Serializable Interface ★★★★★
+
+`Serializable` is a **marker interface**.
+
+It contains **no methods**.
+
+Implementing it tells the JVM that the object can be serialized.
+
+```java
+class Employee implements Serializable {
+
+}
+```
+
+---
+
+# serialVersionUID ★★★★★
+
+## Interview Answer
+
+`serialVersionUID` uniquely identifies the version of a serialized class.
+
+If the UID of the serialized object and current class differ,
+
+```
+InvalidClassException
+```
+
+is thrown during deserialization.
+
+Example
+
+```java
+private static final long serialVersionUID = 1L;
+```
+
+---
+
+# transient ★★★★★
+
+## Interview Answer
+
+`transient` prevents a field from being serialized.
+
+Useful for
+
+- Password
+- OTP
+- Session Token
+- Sensitive Data
+
+Example
+
+```java
+transient String password;
+```
+
+---
+
+# static Variable
+
+Static variables belong to the class, not an object.
+
+Therefore,
+
+they are **not serialized**.
+
+---
+
+# What happens if a field is not Serializable?
+
+Suppose
+
+```java
+class Employee implements Serializable {
+
+    Address address;
+}
+```
+
+If
+
+```
+Address
+```
+
+does not implement Serializable,
+
+serialization fails with
+
+```
+NotSerializableException
+```
+
+---
+
+## How to avoid it?
+
+Option 1
+
+Make Address Serializable.
+
+Option 2
+
+Mark it as transient.
+
+```java
+transient Address address;
+```
+
+> This was asked in one of your interviews.
+
+---
+
+# writeObject() and readObject() ★★★☆☆
+
+These methods allow customization of the serialization process.
+
+Useful when
+
+- Encrypting fields
+- Validating data
+- Custom serialization logic
+
+---
+
+# Externalizable ★★☆☆☆
+
+Alternative to Serializable.
+
+Provides complete control.
+
+Requires implementing
+
+- writeExternal()
+- readExternal()
+
+---
+
+# Frequently Asked Questions
+
+1. What is Serialization?
+2. Why do we need Serialization?
+3. What is serialVersionUID?
+4. What happens if serialVersionUID changes?
+5. What is transient?
+6. Are static variables serialized?
+7. Marker Interface?
+8. Serializable vs Externalizable?
+
+
+# Reflection
+
+---
+
+# Reflection ★★★☆☆
+
+## Interview Answer
+
+Reflection allows a Java program to inspect and manipulate classes, methods, constructors and fields at runtime.
+
+---
+
+# What can Reflection do?
+
+- Get class information
+- Invoke methods
+- Access private fields
+- Create objects dynamically
+
+---
+
+# Example
+
+```java
+Class<?> clazz = Employee.class;
+
+Method[] methods = clazz.getDeclaredMethods();
+```
+
+---
+
+# Uses
+
+- Spring Framework
+- Hibernate
+- Dependency Injection
+- Testing Frameworks
+- Annotation Processing
+
+---
+
+# Advantages
+
+- Dynamic programming
+- Framework development
+- Runtime inspection
+
+---
+
+# Disadvantages
+
+- Slower
+- Breaks encapsulation
+- Security concerns
+- Harder to debug
+
+---
+
+# Frequently Asked Questions
+
+1. What is Reflection?
+2. Where is Reflection used?
+3. Why is Reflection slower?
+4. Can Reflection access private methods?
+
+
+# Java Memory Model (JMM)
+
+---
+
+# Java Memory Model ★★★★★
+
+## Interview Answer
+
+Java Memory Model defines how threads interact with memory and guarantees visibility, ordering and atomicity of shared data.
+
+It ensures predictable behavior in multithreaded applications.
+
+---
+
+# Main Memory vs Thread Cache
+
+```
+        Main Memory
+
+        ↑      ↑
+
+ Thread 1    Thread 2
+
+(Local Cache) (Local Cache)
+```
+
+Each thread may keep its own cached copy of variables.
+
+---
+
+# Visibility ★★★★★
+
+Changes made by one thread may not immediately be visible to another.
+
+Use
+
+- volatile
+- synchronized
+
+to ensure visibility.
+
+---
+
+# Happens-Before Relationship ★★★★☆
+
+Defines execution order.
+
+If A happens-before B,
+
+then changes made in A are guaranteed to be visible to B.
+
+Examples
+
+- Lock release → Lock acquire
+- Thread.start()
+- Thread.join()
+- volatile write → volatile read
+
+---
+
+# Reordering ★★★☆☆
+
+Compiler and CPU may reorder instructions for optimization.
+
+Synchronization prevents incorrect reordering.
+
+---
+
+# CAS (Compare And Swap) ★★★★★
+
+## Interview Answer
+
+CAS is a lock-free atomic operation.
+
+It compares current value with expected value.
+
+If equal,
+
+updates the value.
+
+Otherwise,
+
+operation retries.
+
+Used by
+
+- AtomicInteger
+- ConcurrentHashMap
+- Concurrent collections
+
+---
+
+# Frequently Asked Questions
+
+1. What is Java Memory Model?
+2. What is visibility?
+3. What is Happens-Before?
+4. What is CAS?
+5. Why is CAS faster than synchronized?
+6. Does volatile guarantee atomicity?
+
+
