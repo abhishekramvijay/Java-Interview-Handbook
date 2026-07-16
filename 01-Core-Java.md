@@ -32,78 +32,8 @@
 11. Interview Coding Questions
 
 ---
-
-# Java Fundamentals
-
-(To be added)
-
 ---
-
-# OOP
-
-(To be added)
-
 ---
-
-# Strings
-
-(To be added)
-
----
-
-# Collections
-
-(To be added)
-
----
-
-# Exception Handling
-
-(To be added)
-
----
-
-# Multithreading
-
-(To be added)
-
----
-
-# JVM
-
-(To be added)
-
----
-
-# Serialization
-
-(To be added)
-
----
-
-# Java Memory Model
-
-(To be added)
-
----
-
-# Reflection
-
-(To be added)
-
----
-
-# Interview Coding Questions
-
-(To be added)
-
-
-
-
-
-
-
-
 
 # Java Fundamentals
 
@@ -1438,3 +1368,420 @@ Caller
 6. Difference between Exception and Error.
 7. Can we have multiple catch blocks?
 8. What is exception propagation?
+
+
+# Multithreading & Concurrency
+
+---
+
+# Process vs Thread ★★★★★
+
+| Process | Thread |
+|----------|--------|
+| Independent program | Smallest unit of execution |
+| Own memory | Shares process memory |
+| Heavyweight | Lightweight |
+| Communication is expensive | Communication is fast |
+
+Example
+
+```
+Chrome
+
+    Process
+
+        ↓
+
+Tabs
+
+    Threads
+```
+
+---
+
+# Creating Threads ★★★★★
+
+There are two common ways.
+
+### Implement Runnable (Preferred)
+
+```java
+class MyTask implements Runnable {
+
+    public void run() {
+
+    }
+}
+
+Thread t = new Thread(new MyTask());
+t.start();
+```
+
+### Extend Thread
+
+```java
+class MyThread extends Thread {
+
+    public void run() {
+
+    }
+}
+```
+
+### Which one should be preferred?
+
+Implement **Runnable** because Java supports single inheritance.
+
+---
+
+# Thread Lifecycle ★★★★★
+
+```
+NEW
+
+↓
+
+RUNNABLE
+
+↓
+
+RUNNING
+
+↓
+
+BLOCKED / WAITING / TIMED_WAITING
+
+↓
+
+TERMINATED
+```
+
+---
+
+# synchronized ★★★★★
+
+## Interview Answer
+
+`synchronized` allows only one thread to execute a critical section at a time by acquiring an object's monitor lock.
+
+It helps prevent race conditions and ensures thread safety.
+
+Example
+
+```java
+public synchronized void withdraw() {
+
+}
+```
+
+or
+
+```java
+synchronized(lock){
+
+}
+```
+
+### Method vs Block
+
+Method
+
+Entire method is locked.
+
+Block
+
+Only critical section is locked.
+
+> Prefer synchronized block because it reduces lock contention.
+
+---
+
+# wait() vs sleep() ★★★★★
+
+| wait() | sleep() |
+|----------|----------|
+| Object class | Thread class |
+| Releases lock | Does not release lock |
+| Used for thread communication | Used for delay |
+| Must be inside synchronized | Can be called anywhere |
+
+---
+
+# notify() vs notifyAll() ★★★★☆
+
+notify()
+
+Wakes one waiting thread.
+
+notifyAll()
+
+Wakes all waiting threads.
+
+> In Producer-Consumer, prefer notifyAll().
+
+---
+
+# volatile ★★★★★
+
+## Interview Answer
+
+volatile guarantees **visibility**.
+
+Whenever one thread updates a volatile variable, all other threads read the updated value from main memory.
+
+It **does not** provide atomicity.
+
+Suitable for
+
+- Status flag
+- Stop signal
+
+Not suitable for
+
+```
+count++
+```
+
+---
+
+# AtomicInteger ★★★★★
+
+## Interview Answer
+
+AtomicInteger performs atomic operations using CAS (Compare-And-Swap) without using synchronized.
+
+Example
+
+```java
+AtomicInteger count = new AtomicInteger();
+
+count.incrementAndGet();
+```
+
+Use when a single variable is modified by multiple threads.
+
+---
+
+# synchronized vs AtomicInteger ★★★★★
+
+| synchronized | AtomicInteger |
+|---------------|---------------|
+| Locks thread | Lock-free |
+| Can protect multiple variables | Single variable only |
+| Slower | Faster |
+
+---
+
+# ReentrantLock ★★★★★
+
+## Interview Answer
+
+ReentrantLock provides explicit locking with additional features over synchronized.
+
+Advantages
+
+- tryLock()
+- lockInterruptibly()
+- Fair locking
+- Multiple Conditions
+
+Always remember
+
+```java
+lock.lock();
+
+try{
+
+}
+finally{
+
+    lock.unlock();
+}
+```
+
+---
+
+# synchronized vs ReentrantLock ★★★★★
+
+| synchronized | ReentrantLock |
+|---------------|---------------|
+| Automatic unlock | Manual unlock |
+| Simple | More flexible |
+| No tryLock | Supports tryLock |
+| No fairness | Supports fairness |
+
+---
+
+# ExecutorService ★★★★★
+
+## Interview Answer
+
+ExecutorService manages a pool of reusable threads.
+
+Instead of creating new threads every time, tasks are submitted to the thread pool.
+
+Example
+
+```java
+ExecutorService service =
+        Executors.newFixedThreadPool(5);
+
+service.submit(task);
+
+service.shutdown();
+```
+
+Advantages
+
+- Thread reuse
+- Better performance
+- Controlled concurrency
+
+---
+
+# Callable vs Runnable ★★★★☆
+
+| Runnable | Callable |
+|-----------|----------|
+| No return value | Returns value |
+| Cannot throw checked exception | Can throw checked exception |
+
+---
+
+# Future ★★★★☆
+
+Represents the result of an asynchronous task.
+
+```
+submit()
+
+↓
+
+Future
+
+↓
+
+get()
+```
+
+---
+
+# CompletableFuture ★★★★☆
+
+Improves asynchronous programming.
+
+Supports
+
+- Chaining
+- Combining tasks
+- Non-blocking execution
+
+---
+
+# Deadlock ★★★★★
+
+## Interview Answer
+
+Deadlock occurs when two or more threads wait indefinitely for each other's locks.
+
+Conditions
+
+- Mutual exclusion
+- Hold and wait
+- No preemption
+- Circular wait
+
+Avoid using
+
+- Consistent lock ordering
+- tryLock()
+- Timeout
+
+---
+
+# Starvation ★★★☆☆
+
+A thread never gets CPU because higher priority threads keep executing.
+
+---
+
+# Livelock ★★★☆☆
+
+Threads keep responding to each other but make no progress.
+
+---
+
+# Producer Consumer ★★★★★
+
+Producer
+
+Produces data.
+
+Consumer
+
+Consumes data.
+
+Implemented using
+
+- wait()
+- notifyAll()
+- BlockingQueue
+
+---
+
+# BlockingQueue ★★★★★
+
+Thread-safe queue.
+
+Producer waits when queue is full.
+
+Consumer waits when queue is empty.
+
+Implementations
+
+- ArrayBlockingQueue
+- LinkedBlockingQueue
+
+---
+
+# Thread-safe Collections ★★★★★
+
+- ConcurrentHashMap
+- CopyOnWriteArrayList
+- BlockingQueue
+- ConcurrentLinkedQueue
+
+---
+
+# Thread Dump ★★★★★
+
+## Interview Answer
+
+Thread dump is a snapshot of all threads in the JVM at a particular point in time.
+
+Useful for
+
+- Deadlock analysis
+- Hung application
+- High CPU
+- Blocked threads
+
+---
+
+# Common Interview Questions
+
+1. synchronized vs ReentrantLock.
+2. wait() vs sleep().
+3. volatile vs AtomicInteger.
+4. Why volatile doesn't provide atomicity?
+5. ExecutorService.
+6. Producer Consumer.
+7. Thread dump.
+8. Deadlock.
+9. Callable vs Runnable.
+10. Future vs CompletableFuture.
+11. notify vs notifyAll.
+12. Thread lifecycle.
+13. How does AtomicInteger work?
+14. Explain CAS.
+15. What happens if unlock() is forgotten?
