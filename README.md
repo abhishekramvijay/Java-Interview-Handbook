@@ -96,3 +96,7 @@ One-minute revision before interviews.
 # Version
 
 Current Version: v1.0
+
+---
+
+>Contributions and suggestions are welcome. If you find any inaccuracies or would like to improve explanations, feel free to open an issue or submit a pull request.
