@@ -616,3 +616,477 @@ int sum = list.stream()
 13. Are Streams thread-safe?
 14. Difference between Collection and Stream?
 15. Can Streams modify the original collection?
+
+
+# Collectors ★★★★★
+
+## Interview Answer
+
+Collectors are utility methods used with the `collect()` terminal operation to accumulate stream elements into collections, maps, strings, or summary results.
+
+Example
+
+```java
+List<String> result = list.stream()
+                          .filter(s -> s.length() > 3)
+                          .collect(Collectors.toList());
+```
+
+---
+
+# Common Collectors ★★★★★
+
+## toList()
+
+```java
+List<String> list = stream.collect(Collectors.toList());
+```
+
+---
+
+## toSet()
+
+```java
+Set<String> set = stream.collect(Collectors.toSet());
+```
+
+---
+
+## toMap()
+
+```java
+Map<Integer, String> map = employees.stream()
+        .collect(Collectors.toMap(Employee::getId,
+                                  Employee::getName));
+```
+
+---
+
+## joining()
+
+```java
+String result = names.stream()
+        .collect(Collectors.joining(", "));
+```
+
+Output
+
+```
+Java, Spring, SQL
+```
+
+---
+
+## counting()
+
+```java
+long count = list.stream()
+        .collect(Collectors.counting());
+```
+
+---
+
+## groupingBy() ★★★★★
+
+Groups elements based on a key.
+
+```java
+Map<String, List<Employee>> map =
+employees.stream()
+.collect(Collectors.groupingBy(Employee::getDepartment));
+```
+
+One of the most frequently asked collectors.
+
+---
+
+## partitioningBy()
+
+Groups into exactly two categories.
+
+```java
+Map<Boolean, List<Integer>> map =
+numbers.stream()
+.collect(Collectors.partitioningBy(n -> n % 2 == 0));
+```
+
+---
+
+## mapping()
+
+Applies transformation while grouping.
+
+```java
+Collectors.mapping(...)
+```
+
+---
+
+## summarizingInt()
+
+Returns
+
+- Count
+- Sum
+- Average
+- Min
+- Max
+
+```java
+IntSummaryStatistics stats =
+employees.stream()
+.collect(Collectors.summarizingInt(Employee::getSalary));
+```
+
+---
+
+# groupingBy() vs partitioningBy() ★★★★☆
+
+| groupingBy() | partitioningBy() |
+|--------------|------------------|
+| Multiple groups | Only two groups |
+| Any key | Boolean key |
+
+---
+
+# Optional ★★★★★
+
+## Interview Answer
+
+Optional is a container object that may or may not contain a value.
+
+It helps avoid NullPointerException and encourages explicit handling of missing values.
+
+---
+
+## Creating Optional
+
+```java
+Optional<String> name =
+Optional.of("Java");
+```
+
+```java
+Optional<String> name =
+Optional.ofNullable(value);
+```
+
+```java
+Optional<String> empty =
+Optional.empty();
+```
+
+---
+
+# Common Methods
+
+## isPresent()
+
+```java
+optional.isPresent();
+```
+
+---
+
+## ifPresent()
+
+```java
+optional.ifPresent(System.out::println);
+```
+
+---
+
+## get()
+
+Returns value.
+
+Throws exception if empty.
+
+Avoid using directly.
+
+---
+
+## orElse() ★★★★★
+
+```java
+String name =
+optional.orElse("Unknown");
+```
+
+Always evaluates the default value.
+
+---
+
+## orElseGet() ★★★★★
+
+```java
+String name =
+optional.orElseGet(() -> fetchDefault());
+```
+
+Default supplier executes only when Optional is empty.
+
+Preferred for expensive operations.
+
+---
+
+## orElseThrow()
+
+```java
+optional.orElseThrow(
+        IllegalArgumentException::new);
+```
+
+---
+
+# orElse() vs orElseGet() ★★★★★
+
+| orElse() | orElseGet() |
+|-----------|-------------|
+| Always evaluates | Lazy evaluation |
+| Suitable for simple values | Suitable for expensive computation |
+
+One of the most frequently asked Java 8 interview questions.
+
+---
+
+# Parallel Streams ★★★★★
+
+## Interview Answer
+
+Parallel Streams process elements using multiple threads from the ForkJoinPool.
+
+Enable by calling
+
+```java
+parallelStream()
+```
+
+or
+
+```java
+stream.parallel()
+```
+
+---
+
+## Advantages
+
+- Better CPU utilization
+- Faster for large datasets
+- Easy parallel programming
+
+---
+
+## Disadvantages
+
+- Thread overhead
+- Not suitable for small collections
+- Order not guaranteed
+- Shared mutable state causes issues
+
+---
+
+## When to Use?
+
+Use
+
+- Large datasets
+- CPU intensive operations
+- Independent computations
+
+Avoid
+
+- Database calls
+- Network calls
+- Small collections
+- Ordered processing
+
+---
+
+# Sequential vs Parallel Stream ★★★★☆
+
+| Sequential | Parallel |
+|-------------|----------|
+| Single thread | Multiple threads |
+| Predictable order | Order not guaranteed |
+| Lower overhead | Better for large datasets |
+
+---
+
+# Date & Time API ★★★★☆
+
+Java 8 introduced the `java.time` package to replace the old `Date` and `Calendar` APIs.
+
+Common Classes
+
+- LocalDate
+- LocalTime
+- LocalDateTime
+- Instant
+- Duration
+- Period
+
+---
+
+## LocalDate
+
+```java
+LocalDate.now();
+```
+
+---
+
+## LocalTime
+
+```java
+LocalTime.now();
+```
+
+---
+
+## LocalDateTime
+
+```java
+LocalDateTime.now();
+```
+
+---
+
+## Duration
+
+Difference between two times.
+
+---
+
+## Period
+
+Difference between two dates.
+
+---
+
+# Common Java 8 Interview Programs
+
+- Print odd numbers using Streams
+- Find duplicate elements
+- Count frequency of characters
+- Find first non-repeating character
+- Find second highest salary
+- Group employees by department
+- Convert List<List<T>> to List<T>
+- Remove duplicates
+- Sort using Streams
+- Find max/min
+- Sum using reduce()
+- Join Strings
+- Partition even/odd numbers
+
+---
+
+# Frequently Asked Questions
+
+1. What are Collectors?
+2. Explain groupingBy().
+3. groupingBy() vs partitioningBy().
+4. What is Optional?
+5. Why Optional?
+6. orElse() vs orElseGet().
+7. Optional.of() vs ofNullable().
+8. What are Parallel Streams?
+9. When should Parallel Streams be avoided?
+10. Sequential vs Parallel Streams.
+11. What thread pool do Parallel Streams use?
+12. What is ForkJoinPool?
+13. What is the new Date & Time API?
+14. Why was the old Date API replaced?
+
+---
+
+# Java 8 Quick Revision
+
+### Lambda
+- Anonymous function
+- Functional programming
+- Less boilerplate
+- Effectively final variables
+
+### Functional Interface
+- One abstract method
+- @FunctionalInterface
+- Predicate
+- Function
+- Consumer
+- Supplier
+
+### Method Reference
+- Class::method
+- Cleaner than Lambda
+
+### Streams
+- Lazy evaluation
+- Source → Intermediate → Terminal
+- Cannot be reused
+- Do not modify source
+
+### Intermediate Operations
+- filter()
+- map()
+- flatMap()
+- sorted()
+- distinct()
+- limit()
+- skip()
+- peek()
+
+### Terminal Operations
+- collect()
+- forEach()
+- reduce()
+- count()
+- min()
+- max()
+- findFirst()
+- findAny()
+
+### Collectors
+- toList()
+- toSet()
+- toMap()
+- joining()
+- groupingBy()
+- partitioningBy()
+- summarizingInt()
+
+### Optional
+- Avoid NullPointerException
+- of()
+- ofNullable()
+- empty()
+- orElse()
+- orElseGet()
+- orElseThrow()
+
+### Parallel Streams
+- ForkJoinPool
+- Multiple threads
+- Large datasets
+- Avoid shared mutable state
+
+### Date API
+- LocalDate
+- LocalTime
+- LocalDateTime
+- Duration
+- Period
+
+### Most Asked Interview Questions
+- map() vs flatMap()
+- Intermediate vs Terminal
+- Lazy Evaluation
+- Optional
+- orElse() vs orElseGet()
+- Parallel Streams
+- groupingBy()
+- findFirst() vs findAny()
+- forEach() vs forEachOrdered()
+- Functional Interfaces
