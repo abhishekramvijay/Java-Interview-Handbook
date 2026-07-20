@@ -25,7 +25,6 @@ Unlike books or tutorials, this handbook focuses only on concepts that are commo
 10-HLD.md
 11-DSA.md
 12-Leadership.md
-13-Projects.md
 99-Rapid-Revision.md
 ```
 
@@ -88,7 +87,6 @@ One-minute revision before interviews.
 9. HLD
 10. DSA
 11. Leadership
-12. Projects
 13. Rapid Revision
 
 ---
